@@ -88,9 +88,9 @@ section h3 {
 }
 
 .participants-list {
-  list-style: disc;
-  margin-left: 18px;
-  padding-left: 6px;
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
   display: block;
 }
 
@@ -104,24 +104,54 @@ section h3 {
   color: #333;
 }
 
-/* Simple avatar */
+/* Elegant avatar */
 .participant-avatar {
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg,#3949ab,#1a237e);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
-  font-size: 13px;
-  flex: 0 0 34px;
+  font-weight: 700;
+  font-size: 14px;
+  flex: 0 0 40px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 /* Participant name */
 .participant-name {
   line-height: 1;
+  flex: 1;
+}
+
+/* Delete button for participant */
+.delete-participant-btn {
+  background-color: transparent;
+  color: #000;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, opacity 0.2s;
+  flex: 0 0 24px;
+}
+
+.delete-participant-btn:hover {
+  transform: scale(1.2);
+  opacity: 0.7;
+  background-color: transparent;
 }
 
 /* Make the participants section visually lighter on small screens */
