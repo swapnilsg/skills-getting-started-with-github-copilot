@@ -4,6 +4,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const messageDiv = document.getElementById("message");
 
+  // Helper: format participant name from email or raw name
+  function formatParticipantName(raw) {
+    if (!raw) return "";
+    if (raw.includes("@")) {
+      const local = raw.split("@")[0];
+      return local.replace(/[._]/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+    }
+    return raw;
+  }
+
+  // Helper: get initials for avatar
+  function getInitials(raw) {
+    const name = formatParticipantName(raw);
+    const parts = name.split(" ").filter(Boolean);
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
+
   // Function to fetch activities from API
   async function fetchActivities() {
     try {
@@ -26,6 +44,39 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
         `;
+
+        // Add participants section
+        const participants = details.participants || [];
+        if (participants.length > 0) {
+          const participantsDiv = document.createElement("div");
+          participantsDiv.className = "participants";
+
+          const heading = document.createElement("h5");
+          heading.textContent = "Participants";
+          participantsDiv.appendChild(heading);
+
+          const ul = document.createElement("ul");
+          ul.className = "participants-list";
+
+          participants.forEach((p) => {
+            const li = document.createElement("li");
+
+            const avatar = document.createElement("span");
+            avatar.className = "participant-avatar";
+            avatar.textContent = getInitials(p);
+
+            const nameSpan = document.createElement("span");
+            nameSpan.className = "participant-name";
+            nameSpan.textContent = formatParticipantName(p);
+
+            li.appendChild(avatar);
+            li.appendChild(nameSpan);
+            ul.appendChild(li);
+          });
+
+          participantsDiv.appendChild(ul);
+          activityCard.appendChild(participantsDiv);
+        }
 
         activitiesList.appendChild(activityCard);
 
